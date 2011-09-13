@@ -1,0 +1,22 @@
+{ 
+  "name": "ace", 
+  "description": "Simple static server.", 
+  "version": "0.0.1", 
+  "author": "maccman", 
+  "licenses":
+    [{ 
+      "type": "MIT", 
+      "url": "https://github.com/maccman/ace/blob/master/LICENSE"
+    }], 
+  "repository": { 
+    "type" : "git", 
+    "url": "http://github.com/maccman/ace.git"
+  }, 
+  "engine" : [ "node >=0.1.102" ], 
+  "main" : "./index.js",
+  "bin": { "ace": "./index.js" },
+  "dependencies" : { 
+    "express": "~2.4.3",
+    "optimist": "~0.2.6"
+  }
+}

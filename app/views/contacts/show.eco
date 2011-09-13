@@ -1,0 +1,7 @@
+<%= @item.name %>
+
+<%= @item.email %>
+
+<%= @item.twitter %>
+
+<%= @item.headline %>
