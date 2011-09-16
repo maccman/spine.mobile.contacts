@@ -1,5 +1,8 @@
 CACHE MANIFEST
 # v1
+NETWORK:
+*
+CACHE:
 ./application.js
 ./application.css
 ./index.html
