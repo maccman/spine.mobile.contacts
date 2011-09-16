@@ -1,10 +1,139 @@
+@import './mixin'
+
 body
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif
   overflow-x: hidden
   -webkit-user-select: none
   margin: 0; padding: 0
-  background: #F2F2F2
-  color: #575757
+  color: #292D39
+  background: #FFF
 
 * 
   -webkit-tap-highlight-color: rgba(0,0,0,0)
+  
+form
+  padding: 20px
+  
+input[type=text], input[type=email], textarea
+  font-size: 20px
+  padding: 5px
+  margin: 0
+  border: 1px solid rgba(0, 0, 0, 0.25)
+  inset-box-shadow(0, 1px, 1px, rgba(0, 0, 0, 0.1))
+  
+input[type=text], input[type=email]
+  border-box()
+  border-radius(5px)
+  width: 100%
+
+input[type=text], input[type=email], textarea, select
+  &:focus
+    outline: none
+    border-color: rgba(104, 189, 244, 0.8)
+
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(104, 189, 244, 0.6)
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(104, 189, 244, 0.6)
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(104, 189, 244, 0.6)
+    
+button
+  margin: 7px
+  padding: 5px 10px
+  font-size: 15px
+  cursor: pointer
+  color: #FFF
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2)
+  border-radius(5px)
+  border: 0
+  -webkit-box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.4)
+  min-width: 60px
+  vbg-gradient(lighten(#eeab41, 30%), darken(#eeab41, 20%))
+  
+body.stage > header
+  height: 45px
+  line-height: 45px
+  vbg-gradient(lighten(#3e67a9, 30%), #3e67a9)
+  
+body.stage .panel > header
+  height: 45px
+  line-height: 45px
+  color: #292D39
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
+  text-align: center
+  
+  h2
+    margin: 0
+    color: #FFF
+    font-weight: normal
+    font: 25px "Lucida Grande", Arial, sans-serif
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2)
+    height: 45px
+    line-height: 45px
+  
+  button
+    font-size: 15px
+    position: absolute
+    left: 0
+    top: 0
+    
+    &.right
+      left: auto
+      right: 0
+
+    &:active
+      vbg-gradient(#e6a53f, #feb746)
+
+body.stage > footer
+  border-box()
+  border-top: 1px solid #464854
+  inset-box-shadow(0, 1px, 0, rgba(255, 255, 255, 0.2))
+
+  background: #AFB3C0
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.1)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, rgba(255, 255, 255, 0))), -webkit-gradient(linear, left top, left bottom, from(#d4d6dd), to(#AFB3C0))
+  
+  hbox()
+  box-pack(center)
+
+  color: #565D65
+  text-shadow: 0 1px 0 #FFF
+  font-weight: bold
+  font-size: 15px
+
+  .item
+    width: 70px
+    height: 30px
+    line-height: 30px
+
+    padding: 5px
+    text-align: center
+
+    cursor: pointer
+    position: relative
+
+    &.active, &:active
+      background: rgba(255, 255, 255, 0.3)
+
+.list
+  // overflow: auto
+  // -webkit-overflow-scrolling: touch
+
+.list .item
+  padding: 0 15px
+  height: 50px
+  line-height: 50px
+  
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+  color: #292D39
+  text-shadow: 0 1px 0 white
+  background: #F6F6F7
+  background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(0.5, rgba(255, 255, 255, 0.4)), color-stop(0.5, rgba(255, 255, 255, 0))), #F6F6F7
+  
+  img
+    float: right
+    max-width: 30px
+    max-height: 30px
+    display: inline-block
+    margin: 10px 0
+
+  &:active
+    background: #F6F6F7
+    inset-box-shadow(0, 1px, 3px, rgba(0, 0, 0, 0.1))

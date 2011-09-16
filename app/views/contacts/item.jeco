@@ -1,1 +1,3 @@
-<div class="item"><%= @name %></div>
+<div class="item">
+  <%= @name or @email %>
+</div>

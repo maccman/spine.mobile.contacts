@@ -1,5 +1,5 @@
 Spine   = require('spine')
-Panel   = require('controllers/panel')
+{Panel} = require('spine.mobile')
 $       = Spine.$
 Contact = require('models/contact')
 
@@ -9,12 +9,15 @@ class ContactsShow extends Panel
   constructor: ->
     super
     
+    Contact.bind('change', @render)
+    
     @active (params) -> 
       @change(params.id)
       
-    @addButton('Cancel', @back)
+    @addButton('Back', @back)    
   
-  render: ->
+  render: =>
+    return unless @item
     @html require('views/contacts/show')(@item)
   
   change: (id) ->
@@ -22,9 +25,12 @@ class ContactsShow extends Panel
     @render()
     
   back: ->
-    @navigate('/contacts', trans: 'left')
+    @navigate('/contacts', trans: 'left')    
     
 class ContactsCreate extends Panel
+  elements:
+    'input': 'input'
+  
   events:
     'submit form': 'submit'
     
@@ -34,15 +40,26 @@ class ContactsCreate extends Panel
     super
     
     @addButton('Cancel', @back)
+    @addButton('Create', @submit).addClass('right')
+    
+    @render()
 
   render: ->
-    @html 'create'
+    @html require('views/contacts/form')()
     
   submit: (e) ->
     e.preventDefault()
+    contact = Contact.create(email: @input.val())
+    if contact
+      @input.val('')
+      @navigate('/contacts', contact.id, trans: 'left')
     
   back: ->
     @navigate('/contacts', trans: 'left')
+    
+  deactivate: ->
+    super
+    @input.blur()
 
 class ContactsUpdate extends Panel    
   className: 'contacts updateView'
@@ -68,7 +85,8 @@ class ContactsUpdate extends Panel
 class ContactsList extends Panel
   events:
     'tap .item': 'click'
-    'tap button.add': 'add'
+  
+  title: 'Contacts'
     
   className: 'contacts list listView'
   
@@ -76,10 +94,10 @@ class ContactsList extends Panel
     super
     
     Contact.bind('refresh change', @render)
-    @header.append($('<button />').addClass('add').text('Add Contact'))
+    @addButton('Add', @add).addClass('right')
     
   render: =>
-    items = Contact.all()
+    items = Contact.all().sort(Contact.nameSort)
     @html require('views/contacts/item')(items)
     
   click: (e) ->
@@ -88,6 +106,7 @@ class ContactsList extends Panel
     
   add: ->
     @navigate('/contacts/create', trans: 'right')
+
     
 class Contacts extends Spine.Controller
   constructor: -> 
@@ -103,5 +122,7 @@ class Contacts extends Spine.Controller
       '/contacts/:id/update': (params) -> @update.active(params)
       '/contacts/:id': (params) -> @show.active(params)
       '/contacts/create': (params) -> @create.active(params)
+      
+    Contact.fetch()
     
 module.exports = Contacts

@@ -1,7 +1,19 @@
-<%= @item.name %>
+<% if @avatar: %>
+  <p><img src="<%= @avatar %>"></p>
+<% end %>
 
-<%= @item.email %>
+<% if @name: %>
+  <p><%= @name %></p>
+<% end %>
 
-<%= @item.twitter %>
+<% if @email: %>
+  <p><a href="mailto:<%= @email %>"><%= @email %></a></p>
+<% end %>
 
-<%= @item.headline %>
+<% if @twitter: %>
+  <p><a href="http://twitter.com/<%= @twitter %>">@<%= @twitter %></a></p>
+<% end %>
+
+<% if @headline: %>
+  <p><%= @headline %></p>
+<% end %>
