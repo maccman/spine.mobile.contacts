@@ -61,27 +61,6 @@ class ContactsCreate extends Panel
     super
     @input.blur()
 
-class ContactsUpdate extends Panel    
-  className: 'contacts updateView'
-  
-  constructor: ->
-    super
-    
-    @active (params) -> 
-      @change(params.id)
-      
-    @addButton('Cancel', @back)
-
-  render: ->
-    @html 'update'
-
-  change: (id) ->
-    @item = Contact.find(id)
-    @render()
-    
-  back: ->
-    @navigate('/contacts', trans: 'left')
-
 class ContactsList extends Panel
   events:
     'tap .item': 'click'
@@ -114,13 +93,11 @@ class Contacts extends Spine.Controller
     
     @list    = new ContactsList
     @show    = new ContactsShow
-    @update  = new ContactsUpdate
     @create  = new ContactsCreate
     
     @routes
-      '/contacts': (params) -> @list.active(params)
-      '/contacts/:id/update': (params) -> @update.active(params)
-      '/contacts/:id': (params) -> @show.active(params)
+      '/contacts':        (params) -> @list.active(params)
+      '/contacts/:id':    (params) -> @show.active(params)
       '/contacts/create': (params) -> @create.active(params)
       
     Contact.fetch()
