@@ -9,19 +9,18 @@ class ContactsShow extends Panel
   constructor: ->
     super
     
-    Contact.bind('change', @render)
+    Contact.bind 'change', @render
     
-    @active (params) -> 
-      @change(params.id)
-      
+    @active @change
+    
     @addButton('Back', @back)    
   
   render: =>
     return unless @item
     @html require('views/contacts/show')(@item)
   
-  change: (id) ->
-    @item = Contact.find(id)
+  change: (params) ->
+    @item = Contact.find(params.id)
     @render()
     
   back: ->
@@ -29,7 +28,7 @@ class ContactsShow extends Panel
     
 class ContactsCreate extends Panel
   elements:
-    'input': 'input'
+    'form': 'form'
   
   events:
     'submit form': 'submit'
@@ -42,16 +41,15 @@ class ContactsCreate extends Panel
     @addButton('Cancel', @back)
     @addButton('Create', @submit).addClass('right')
     
-    @render()
+    @active @render
 
   render: ->
     @html require('views/contacts/form')()
     
   submit: (e) ->
     e.preventDefault()
-    contact = Contact.create(email: @input.val())
-    if contact
-      @input.val('')
+    contact = Contact.fromForm(@form)
+    if contact.save()
       @navigate('/contacts', contact.id, trans: 'left')
     
   back: ->
@@ -59,7 +57,7 @@ class ContactsCreate extends Panel
     
   deactivate: ->
     super
-    @input.blur()
+    @form.blur()
 
 class ContactsList extends Panel
   events:
@@ -85,7 +83,6 @@ class ContactsList extends Panel
     
   add: ->
     @navigate('/contacts/create', trans: 'right')
-
     
 class Contacts extends Spine.Controller
   constructor: -> 
@@ -96,9 +93,9 @@ class Contacts extends Spine.Controller
     @create  = new ContactsCreate
     
     @routes
-      '/contacts':        (params) -> @list.active(params)
-      '/contacts/:id':    (params) -> @show.active(params)
       '/contacts/create': (params) -> @create.active(params)
+      '/contacts/:id':    (params) -> @show.active(params)
+      '/contacts':        (params) -> @list.active(params)
       
     Contact.fetch()
     

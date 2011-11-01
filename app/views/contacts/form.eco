@@ -1,3 +1,11 @@
 <form>
-  <input type="email" name="email" placeholder="Email">
+  <label>
+    <span>Name</span>
+    <input type="text" name="name">
+  </label>
+  
+  <label>
+    <span>Email</span>
+    <input type="email" name="email">
+  </label>
 </form>

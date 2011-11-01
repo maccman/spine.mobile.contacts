@@ -1,19 +1,7 @@
-<% if @avatar: %>
-  <p><img src="<%= @avatar %>"></p>
-<% end %>
-
 <% if @name: %>
   <p><%= @name %></p>
 <% end %>
 
 <% if @email: %>
   <p><a href="mailto:<%= @email %>"><%= @email %></a></p>
-<% end %>
-
-<% if @twitter: %>
-  <p><a href="http://twitter.com/<%= @twitter %>">@<%= @twitter %></a></p>
-<% end %>
-
-<% if @headline: %>
-  <p><%= @headline %></p>
 <% end %>
