@@ -161,6 +161,9 @@ input {
   width: 100%;
   font-size: 15px;
   margin: 5px 0 0 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .contacts.listView > article:empty::after {
   display: block;
