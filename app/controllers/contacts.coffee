@@ -1,7 +1,7 @@
-Spine   = require('spine')
-{Panel} = require('spine.mobile')
+Spine   = require 'spine'
+{Panel} = require 'spine.mobile' 
 $       = Spine.$
-Contact = require('models/contact')
+Contact = require 'models/contact'
 
 class ContactsShow extends Panel
   className: 'contacts showView'
@@ -13,18 +13,18 @@ class ContactsShow extends Panel
     
     @active @change
     
-    @addButton('Back', @back)    
+    @addButton 'Back', @back
   
   render: =>
     return unless @item
     @html require('views/contacts/show')(@item)
   
   change: (params) ->
-    @item = Contact.find(params.id)
+    @item = Contact.find params.id
     @render()
     
   back: ->
-    @navigate('/contacts', trans: 'left')    
+    @navigate '/contacts', trans: 'left'  
     
 class ContactsCreate extends Panel
   elements:
@@ -38,8 +38,8 @@ class ContactsCreate extends Panel
   constructor: ->
     super
     
-    @addButton('Cancel', @back)
-    @addButton('Create', @submit).addClass('right')
+    @addButton 'Cancel', @back
+    @addButton('Create', @submit).addClass 'right'
     
     @active @render
 
@@ -48,12 +48,12 @@ class ContactsCreate extends Panel
     
   submit: (e) ->
     e.preventDefault()
-    contact = Contact.fromForm(@form)
+    contact = Contact.fromForm @form
     if contact.save()
-      @navigate('/contacts', contact.id, trans: 'left')
+      @navigate '/contacts', contact.id, trans: 'left'
     
   back: ->
-    @navigate('/contacts', trans: 'left')
+    @navigate '/contacts', trans: 'left'
     
   deactivate: ->
     super
@@ -70,19 +70,19 @@ class ContactsList extends Panel
   constructor: ->
     super
     
-    Contact.bind('refresh change', @render)
-    @addButton('Add', @add).addClass('right')
+    Contact.bind 'refresh change', @render
+    @addButton('Add', @add).addClass 'right'
     
   render: =>
-    items = Contact.all().sort(Contact.nameSort)
+    items = Contact.all().sort Contact.nameSort
     @html require('views/contacts/item')(items)
     
   click: (e) ->
     item = $(e.target).item()
-    @navigate('/contacts', item.id, trans: 'right')
+    @navigate '/contacts', item.id, trans: 'right'
     
   add: ->
-    @navigate('/contacts/create', trans: 'right')
+    @navigate '/contacts/create', trans: 'right'
     
 class Contacts extends Spine.Controller
   constructor: -> 
